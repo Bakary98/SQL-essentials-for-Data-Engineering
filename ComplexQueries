@@ -1,0 +1,14 @@
+-- ### Exercise 1 - Customer order count
+
+-- Get order count per customer for the month of 2014 January.
+
+-- * Tables - `orders` and `customers`
+-- * Data should be sorted in descending order by count and ascending order by customer id.
+-- * Output should contain `customer_id`, `customer_fname`, `customer_lname` and `customer_order_count`.
+
+SELECT  customer_id, customer_fname, customer_lname, count(*) AS customer_order_count
+FROM  orders 
+JOIN customers
+ON order_customer_id =customer_id
+GROUP BY customer_id 
+ORDER BY 4 DESC;
