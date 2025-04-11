@@ -85,4 +85,19 @@ AND order_status IN ('COMPLETE','CLOSED')
 GROUP BY category_id
 ORDER BY 1
 ;
+-- ### Exercise 5 - Product Count Per Department
 
+-- Get the count of products for each department.
+-- * Tables - `departments`, `categories`, `products`
+-- * Data should be sorted in ascending order by `department_id`
+-- * Output should contain all the fields from `departments` and the product count as `product_count`
+
+SELECT d.*, COUNT (product_id) AS product_count
+FROM categories ca
+JOIN departments d
+ON ca.category_department_id = d.department_id
+JOIN products p
+ON p.product_category_id = ca.category_id
+GROUP BY department_id
+ORDER BY department_id ASC
+;
