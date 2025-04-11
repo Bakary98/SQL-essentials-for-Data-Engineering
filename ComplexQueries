@@ -13,3 +13,35 @@ ON order_customer_id =customer_id
 WHERE order_date>= '2014-01-01 00:00:00'AND order_date <'2014-02-01 00:00:00'
 GROUP BY customer_id 
 ORDER BY 4 DESC;
+
+-- ### Exercise 2 - Dormant Customers
+
+-- Get the customer details who have not placed any order for the month of 2014 January.
+-- * Tables - `orders` and `customers`
+-- * Output Columns - **All columns from customers as is**
+-- * Data should be sorted in ascending order by `customer_id`
+-- * Output should contain all the fields from `customers`
+-- * Make sure to run below provided validation queries and validate the output.
+
+SELECT DISTINCT c.* 
+FROM customers c
+LEFT OUTER JOIN orders o
+ON  c.customer_id = o.order_customer_id
+WHERE customer_id NOT IN (
+				SELECT DISTINCT order_customer_id
+				FROM orders
+				WHERE to_char(order_date, 'yyyy-MM') = '2014-01')
+ORDER BY customer_id ASC;
+
+SELECT count(DISTINCT order_customer_id)
+FROM orders
+WHERE to_char(order_date, 'yyyy-MM') = '2014-01';
+
+SELECT count(*)
+FROM customers;
+
+-- Get the difference
+-- Get the count using solution query, both the difference and this count should match
+
+-- * Hint: You can use `NOT IN` or `NOT EXISTS` or `OUTER JOIN` to solve this problem.
+
